@@ -1,0 +1,210 @@
+{% extends 'CrmAppBundle:Shared:layout.html.twig' %}
+
+{% block title %}New Company{% endblock %}
+
+{% block body %}
+
+    <div class="page-header">
+        <h1>Manage Company</h1>
+    </div>
+{#
+    {% if error_message %}
+    <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{ error_message }}
+    </div>
+    {% endif %}
+#}
+    <div class="row clearfix">
+
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6  column col-sm-offset-0 col-md-offset-2 col-lg-offset-3">
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+                <div class="form-group">
+                    {{ form_label(form.name, null, {
+                        'label_attr': {
+                            'class': 'col-md-3 control-label'
+                        }}
+                    ) }}
+                    {{ form_errors(form.name) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.name, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Name'
+                            }}
+                        ) }}
+                     </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.taxCode, null, {
+                        'label_attr': {
+                            'class': 'col-md-3 control-label'
+                        }}
+                    ) }}
+                    {{ form_errors(form.taxCode) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.taxCode, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Tax Code'
+                            }}
+                        ) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.address, null, {
+                        'label_attr': {
+                            'class': 'col-md-3 control-label'
+                        }}
+                    ) }}
+                    {{ form_errors(form.address) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.address, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Address'
+                            }}
+                        ) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.city, null, {
+                        'label_attr': {
+                            'class': 'col-md-3 control-label'
+                        }}
+                    ) }}
+                    {{ form_errors(form.city) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.city, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'City'
+                            }}
+                        ) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.province, null, {
+                        'label_attr': {
+                        'class': 'col-md-3 control-label'
+                    }}
+                    ) }}
+                    {{ form_errors(form.province) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.province, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Province'
+                            }}
+                        ) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.zipCode, null, {
+                        'label_attr': {
+                            'class': 'col-md-3 control-label'
+                        }}
+                    ) }}
+                    {{ form_errors(form.zipCode) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.zipCode, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Zip Code'
+                            }}
+                        ) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.country, null, {
+                        'label_attr': {
+                        'class': 'col-md-3 control-label'
+                    }}
+                    ) }}
+                    {{ form_errors(form.country) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.country, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Country'
+                        }}
+                        ) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.email, null, {
+                        'label_attr': {
+                            'class': 'col-md-3 control-label'
+                        }}
+                    ) }}
+                    {{ form_errors(form.email) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.email, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Email'
+                            }}
+                        ) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.phone, null, {
+                        'label_attr': {
+                            'class': 'col-md-3 control-label'
+                        }}
+                    ) }}
+                    {{ form_errors(form.phone) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.phone, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Phone'
+                            }}
+                        ) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.fax, null, {
+                        'label_attr': {
+                            'class': 'col-md-3 control-label'
+                        }}
+                    ) }}
+                    {{ form_errors(form.fax) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.fax, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Fax'
+                            }}
+                        ) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.website, null, {
+                        'label_attr': {
+                            'class': 'col-md-3 control-label'
+                        }}
+                    ) }}
+                    {{ form_errors(form.website) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.website, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Website'
+                            }}
+                        ) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_widget(form.save) }}
+                </div>
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+{% endblock %}

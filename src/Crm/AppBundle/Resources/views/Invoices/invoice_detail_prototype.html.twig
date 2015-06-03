@@ -1,0 +1,6 @@
+<tr>
+	<td class="col-md-8">{{ form_widget(form.description, { 'attr': {'class': 'invoiceDetailDescription'} } ) }}</td>
+	<td class="col-md-2 triggerTotalAmounts">{{ form_widget(form.type, { 'attr': {'class': 'invoiceDetailType'} } ) }}</td>
+	<td class="col-md-2 text-right triggerTotalAmounts">{{ form_widget(form.amount, { 'attr': {'class': 'invoiceDetailAmount'} } ) }} {{ currency }}</td>
+	<td><a href="javascript:;" class="remove-invoiceDetail"><span class="glyphicon glyphicon-trash"></span></a></td>
+</tr>

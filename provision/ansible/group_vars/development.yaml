@@ -1,0 +1,7 @@
+# PHP
+php_display_errors: On
+php_error_reporting: E_ALL|E_STRICT
+
+# APACHE
+apache_server_name:      "symfonycrm.com.dev"
+apache_app_environment:  "development"

@@ -1,0 +1,7 @@
+---
+# vars file for apache
+
+apache_server_name:      "symfonycrm.com"
+apache_port:             80
+apache_doc_root:         "{{src_path}}web"
+apache_app_environment:  "production"

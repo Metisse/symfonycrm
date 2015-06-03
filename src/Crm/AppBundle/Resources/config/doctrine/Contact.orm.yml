@@ -1,0 +1,45 @@
+Crm\AppBundle\Entity\Contact:
+    type: entity
+    table: contact
+    repositoryClass: Crm\AppBundle\Entity\ContactRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        surname:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+        phone:
+            type: string
+            length: '12'
+        createdAt:
+            type: datetime
+            column: created_at
+            columnDefinition: TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        updatedAt:
+            type: datetime
+            column: updated_at
+            nullable: true
+    manyToOne:
+        company:
+            targetEntity: Company
+            joinColumn:
+                name: id_company
+                referencedColumnName: id
+        user:
+            targetEntity: User
+            joinColumn:
+                name: id_user
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [onPrePersist]
+        preUpdate: [onPreUpdate]

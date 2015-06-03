@@ -1,0 +1,13 @@
+---
+- name: Create a VirtualHost file
+  template:
+    src=apache_vhost.conf.j2
+    dest=/etc/apache2/sites-available/{{ apache_server_name }}.conf
+    owner=root
+    group=root
+    mode=0644
+
+- name: Enable VirtualHost file
+  command: a2ensite {{ apache_server_name }}
+  notify:
+    - restart apache2

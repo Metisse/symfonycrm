@@ -1,0 +1,15 @@
+---
+- name: Frontal provision
+  hosts: frontal
+  sudo: yes
+  roles:
+    - repos
+    - apache
+    - php
+    - mysql
+
+- name: Development specific provision
+  hosts: development
+  sudo: yes
+  roles:
+    - dev

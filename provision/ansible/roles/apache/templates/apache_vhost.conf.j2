@@ -1,0 +1,32 @@
+NameVirtualHost *:80
+
+<VirtualHost *:{{ apache_port }}>
+
+	ServerName {{ apache_server_name }}
+
+	SetEnv CORE_ENVIRONMENT "{{ apache_app_environment }}"
+
+#    SetEnv SYMFONY__DATABASE__USER     "..."
+#    SetEnv SYMFONY__DATABASE__PASSWORD "..."
+
+    DocumentRoot    "{{ apache_doc_root }}"
+    DirectoryIndex  app_dev.php
+
+    <Directory "{{ apache_doc_root }}">
+        AllowOverride None
+        Allow from All
+
+        <IfModule mod_rewrite.c>
+            Options -MultiViews
+            RewriteEngine On
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteRule ^(.*)$ app_dev.php [QSA,L]
+        </IfModule>
+    </Directory>
+
+	## Logging
+	ErrorLog "/var/log/apache2/{{ apache_server_name }}_error.log"
+	CustomLog "/var/log/apache2/{{ apache_server_name }}_access.log" combined
+
+</VirtualHost>
+

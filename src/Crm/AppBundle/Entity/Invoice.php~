@@ -1,0 +1,335 @@
+<?php
+
+namespace Crm\AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Invoice
+ */
+class Invoice
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $reference;
+
+    /**
+     * @var string
+     */
+    private $totalAmount;
+
+    /**
+     * @var string
+     */
+    private $totalExpenses;
+
+    /**
+     * @var string
+     */
+    private $totalOutlays;
+
+    /**
+     * @var string
+     */
+    private $vat;
+
+    /**
+     * @var string
+     */
+    private $tax;
+
+    /**
+     * @var boolean
+     */
+    private $isPaid;
+
+    /**
+     * @var \DateTime
+     */
+    private $dueDate;
+
+    /**
+     * @var \DateTime
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     * @return Invoice
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string 
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
+
+    /**
+     * Set totalAmount
+     *
+     * @param string $totalAmount
+     * @return Invoice
+     */
+    public function setTotalAmount($totalAmount)
+    {
+        $this->totalAmount = $totalAmount;
+
+        return $this;
+    }
+
+    /**
+     * Get totalAmount
+     *
+     * @return string 
+     */
+    public function getTotalAmount()
+    {
+        return $this->totalAmount;
+    }
+
+    /**
+     * Set totalExpenses
+     *
+     * @param string $totalExpenses
+     * @return Invoice
+     */
+    public function setTotalExpenses($totalExpenses)
+    {
+        $this->totalExpenses = $totalExpenses;
+
+        return $this;
+    }
+
+    /**
+     * Get totalExpenses
+     *
+     * @return string 
+     */
+    public function getTotalExpenses()
+    {
+        return $this->totalExpenses;
+    }
+
+    /**
+     * Set totalOutlays
+     *
+     * @param string $totalOutlays
+     * @return Invoice
+     */
+    public function setTotalOutlays($totalOutlays)
+    {
+        $this->totalOutlays = $totalOutlays;
+
+        return $this;
+    }
+
+    /**
+     * Get totalOutlays
+     *
+     * @return string 
+     */
+    public function getTotalOutlays()
+    {
+        return $this->totalOutlays;
+    }
+
+    /**
+     * Set vat
+     *
+     * @param string $vat
+     * @return Invoice
+     */
+    public function setVat($vat)
+    {
+        $this->vat = $vat;
+
+        return $this;
+    }
+
+    /**
+     * Get vat
+     *
+     * @return string 
+     */
+    public function getVat()
+    {
+        return $this->vat;
+    }
+
+    /**
+     * Set tax
+     *
+     * @param string $tax
+     * @return Invoice
+     */
+    public function setTax($tax)
+    {
+        $this->tax = $tax;
+
+        return $this;
+    }
+
+    /**
+     * Get tax
+     *
+     * @return string 
+     */
+    public function getTax()
+    {
+        return $this->tax;
+    }
+
+    /**
+     * Set isPaid
+     *
+     * @param boolean $isPaid
+     * @return Invoice
+     */
+    public function setIsPaid($isPaid)
+    {
+        $this->isPaid = $isPaid;
+
+        return $this;
+    }
+
+    /**
+     * Get isPaid
+     *
+     * @return boolean 
+     */
+    public function getIsPaid()
+    {
+        return $this->isPaid;
+    }
+
+    /**
+     * Set dueDate
+     *
+     * @param \DateTime $dueDate
+     * @return Invoice
+     */
+    public function setDueDate($dueDate)
+    {
+        $this->dueDate = $dueDate;
+
+        return $this;
+    }
+
+    /**
+     * Get dueDate
+     *
+     * @return \DateTime 
+     */
+    public function getDueDate()
+    {
+        return $this->dueDate;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Invoice
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Invoice
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+    /**
+     * @var \Crm\AppBundle\Entity\Company
+     */
+    private $country;
+
+
+    /**
+     * Set country
+     *
+     * @param \Crm\AppBundle\Entity\Company $country
+     * @return Invoice
+     */
+    public function setCountry(\Crm\AppBundle\Entity\Company $country = null)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return \Crm\AppBundle\Entity\Company 
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+}

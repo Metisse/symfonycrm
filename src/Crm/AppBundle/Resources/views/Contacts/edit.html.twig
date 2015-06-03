@@ -1,0 +1,114 @@
+{% extends 'CrmAppBundle:Shared:layout.html.twig' %}
+
+{% block title %}New Contact{% endblock %}
+
+{% block body %}
+
+    <div class="page-header">
+        <h1>Manage Contact</h1>
+    </div>
+{#
+    {% if error_message %}
+    <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{ error_message }}
+    </div>
+    {% endif %}
+#}
+    <div class="row clearfix">
+
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6  column col-sm-offset-0 col-md-offset-2 col-lg-offset-3">
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+                <div class="form-group">
+                    {{ form_label(form.name, null, {
+                        'label_attr': {
+                            'class': 'col-md-3 control-label'
+                        }}
+                    ) }}
+                    {{ form_errors(form.name) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.name, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Name'
+                            }}
+                        ) }}
+                     </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.surname, null, {
+                        'label_attr': {
+                            'class': 'col-md-3 control-label'
+                        }}
+                    ) }}
+                    {{ form_errors(form.surname) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.surname, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Surname'
+                            }}
+                        ) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.company, null, {
+                        'label_attr': {
+                            'class': 'col-md-3 control-label'
+                        }}
+                    ) }}
+                    {{ form_errors(form.company) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.company, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Company'
+                            }}
+                        ) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.email, null, {
+                        'label_attr': {
+                            'class': 'col-md-3 control-label'
+                        }}
+                    ) }}
+                    {{ form_errors(form.email) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.email, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Email'
+                            }}
+                        ) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.phone, null, {
+                        'label_attr': {
+                        'class': 'col-md-3 control-label'
+                    }}
+                    ) }}
+                    {{ form_errors(form.phone) }}
+                    <div class="col-md-9">
+                        {{ form_widget(form.phone, {
+                            'attr': {
+                                'class': 'form-control input-md',
+                                'placeholder': 'Phone'
+                            }}
+                        ) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_widget(form.save) }}
+                </div>
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+{% endblock %}

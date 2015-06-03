@@ -1,0 +1,5 @@
+---
+# vars file for php
+php_display_errors: Off
+php_error_reporting: E_ALL-E_NOTICE
+php_timezone: Europe/Madrid

@@ -1,0 +1,75 @@
+{% extends 'CrmAppBundle:Shared:layout.html.twig' %}
+
+{% block title %}Company {{ company.name }}{% endblock %}
+
+{% block body %}
+
+	<div class="page-header">
+		<h1>{{ company.name }}</h1>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-4">
+			<h3>{{ company.name }} Information</h3>
+			<div class="text-right"><a href="{{ url('crm_app_company_edit', {'id':company.id}) }}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil"> Edit</span></a></div>
+			<address>
+				<strong>{{ company.name }}</strong><br>
+				{{ company.address }}<br>
+				{{ company.zipCode }} - {{ company.city }}<br>
+				{{ company.province.name }} ({{ company.country.name }})<br><br>
+				<span class="glyphicon glyphicon-earphone"> {{ company.phone }}</span><br>
+				<span class="glyphicon glyphicon-print"> {{ company.fax }}</span><br>
+				<span class="glyphicon glyphicon-envelope"> <a href="mailto:{{ company.email }}">{{ company.email }}</a></span>
+			</address>
+		</div>
+		<div class="col-sm-4">
+			<h3>{{ company.name }} Contacts</h3>
+			<div class="text-right"><a href="{{ url('crm_app_contact_add') }}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"> Add</span></a></div>
+			{% for contact in contacts %}
+			<div class="panel panel-info">
+				<div class="panel-body">
+					<strong>{{ contact.name }} {{ contact.surname }}</strong><br><br>
+					<span class="glyphicon glyphicon-earphone"> {{ contact.phone }}</span><br>
+					<span class="glyphicon glyphicon-envelope"> <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></span>
+				</div>
+			</div>
+			{% else %}
+				<div><span class="label label-success">Yipee!</span> It seems that you don't have any contact yet!</div>
+			{% endfor %}
+		</div>
+		<div class="col-sm-4">
+			<h3>{{ company.name }} Invoices</h3>
+			<div class="text-right"><a href="{{ url('crm_app_invoice_add', {'id_company':company.id}) }}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"> Add</span></a></div>
+
+			<table class="table table-stripped table-hover">
+				<thead>
+				<tr>
+					<th>#Ref</th>
+					<th>Incomings</th>
+					<th>Expenses</th>
+					<th>Outlays</th>
+					<th>Due date</th>
+					<th>Is paid?</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for invoice in invoices %}
+				<tr>
+					<td scope="row"><a href="{{ url('crm_app_invoice_show', {'id': invoice.id, 'id_company': company.id}) }}">{{ invoice.reference }}</a></td>
+					<td>{{ invoice.totalTaxable }}</td>
+					<td>{{ invoice.totalExpenses }}</td>
+					<td>{{ invoice.totalOutlays }}</td>
+					<td>{{ invoice.dueDate|date("d/m/Y") }}</td>
+					<td>{% if invoice.isPaid %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
+				</tr>
+				{% else %}
+				<tr>
+					<td colspan="6"><span class="label label-success">Yipee!</span> It seems that you don't have any invoice yet!</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,5 @@
+# file: mysql/tasks/main.yml
+
+- include: install.yml
+- include: databases.yml
+- include: users.yml

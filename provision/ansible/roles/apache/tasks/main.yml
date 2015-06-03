@@ -1,0 +1,21 @@
+---
+# tasks file for apache
+
+- name: Install Apache
+  apt: pkg={{ item }} state=present
+  with_items:
+  - apache2
+
+- name: Ensure apache2 is running
+  service: name=apache2 state=started
+
+- name: Ensure apache2 is enabled
+  service: name=apache2 enabled=yes
+
+- name: Listen to {{ apache_port }} port
+  replace: dest=/etc/apache2/ports.conf regexp='^Listen\s+80\s*$' replace='Listen {{ apache_port }}'
+  notify:
+    - restart apache2
+
+- include: configure-modules.yml
+- include: configure-vhosts.yml

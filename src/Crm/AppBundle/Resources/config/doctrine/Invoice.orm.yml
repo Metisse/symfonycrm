@@ -1,0 +1,75 @@
+Crm\AppBundle\Entity\Invoice:
+    type: entity
+    table: invoice
+    repositoryClass: Crm\AppBundle\Entity\InvoiceRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        reference:
+            type: string
+            length: 255
+        totalTaxable:
+            type: decimal
+            precision: 7
+            scale: 2
+            column: total_taxable
+        totalExpenses:
+            type: decimal
+            precision: 7
+            scale: 2
+            column: total_expenses
+        totalOutlays:
+            type: decimal
+            precision: 7
+            scale: 2
+            column: total_outlays
+        vat:
+            type: string
+            columnDefinition: ENUM('0','21')
+            options:
+                default: 0
+        tax:
+            type: string
+            columnDefinition: ENUM('0','9','15','21')
+            options:
+                default: 0
+        isPaid:
+            type: boolean
+            column: is_paid
+            options:
+                default: 0
+        dueDate:
+            type: datetime
+            column: due_date
+            nullable: true
+        createdAt:
+            type: datetime
+            column: created_at
+            columnDefinition: TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        updatedAt:
+            type: datetime
+            column: updated_at
+            nullable: true
+    manyToOne:
+        company:
+            targetEntity: Company
+            joinColumn:
+                name: id_company
+                referencedColumnName: id
+        user:
+            targetEntity: User
+            joinColumn:
+                name: id_user
+                referencedColumnName: id
+    oneToMany:
+        invoiceDetails:
+            targetEntity: InvoiceDetail
+            mappedBy:     invoice
+            cascade:      [persist]
+    lifecycleCallbacks:
+        prePersist: [onPrePersist]
+        preUpdate: [onPreUpdate]

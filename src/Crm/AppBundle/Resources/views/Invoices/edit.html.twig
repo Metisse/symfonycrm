@@ -1,0 +1,220 @@
+{% extends 'CrmAppBundle:Shared:layout.html.twig' %}
+
+{% block title %}Manage invoice{% endblock %}
+
+{% block body %}
+
+    <div class="page-header">
+        <h1>Manage invoice</h1>
+    </div>
+
+    <br/>
+    <div class="row">
+        <div class="col-xs-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>From: {% if own_company.website %}<a href="{{ own_company.website }}" target="blank">{{ own_company.name }}</a>{% else %}{{ own_company.name }}{% endif %} ({{ own_company.tax_code }})</h4>
+                </div>
+                <div class="panel-body">
+                    <address>
+                        {{ own_company.address }} <br>
+                        {{ own_company.zip_code }} - {{ own_company.city }} <br>
+                        {{ own_company.province }} ({{ own_company.country }}) <br><br>
+
+                        {% if own_company.phone %}<span class="glyphicon glyphicon-earphone"> {{ own_company.phone }}</span><br>{% endif %}
+                        {% if own_company.fax %}<span class="glyphicon glyphicon-print"> {{ own_company.fax }}</span><br>{% endif %}
+                        {% if own_company.email %}<span class="glyphicon glyphicon-envelope"> <a href="mailto:{{ own_company.email }}">{{ own_company.email }}</a></span>{% endif %}
+                    </address>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-5 col-xs-offset-2 text-right">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>To : <a href="{{ url('crm_app_company_show', {'id':invoice.company.id}) }}">{{ invoice.company.name }}</a> ({{ invoice.company.taxCode }})</h4>
+                </div>
+                <div class="panel-body">
+                    <address>
+                        {{ invoice.company.address }}<br>
+                        {{ invoice.company.zipCode }} - {{ invoice.company.city }}<br>
+                        {{ invoice.company.province.name }} ({{ invoice.company.country.name }})<br><br>
+                        <span class="glyphicon glyphicon-earphone"> {{ invoice.company.phone }}</span><br>
+                        <span class="glyphicon glyphicon-print"> {{ invoice.company.fax }}</span><br>
+                        <span class="glyphicon glyphicon-envelope"> <a href="mailto:{{ invoice.company.email }}">{{ invoice.company.email }}</a></span>
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div> <!-- / end client details section -->
+
+	{{ form_start(form) }}
+	<div class="row clearfix">
+		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6  column col-sm-offset-0 col-md-offset-2 col-lg-offset-3">
+			{{ form_errors(form) }}
+
+			<div class="form-group">
+				{{ form_label(form.vat, null, {
+					'label_attr': {
+						'class': 'col-md-3 control-label'
+					}}
+				) }}
+				{{ form_errors(form.vat) }}
+				<div class="col-md-9">
+					{{ form_widget(form.vat, {
+						'attr': {
+							'class': 'form-control input-md triggerTotalAmounts'
+						}}
+					) }}
+				</div>
+			</div>
+
+			<div class="form-group">
+				{{ form_label(form.tax, null, {
+					'label_attr': {
+						'class': 'col-md-3 control-label'
+					}}
+				) }}
+				{{ form_errors(form.tax) }}
+				<div class="col-md-9">
+					{{ form_widget(form.tax, {
+						'attr': {
+							'class': 'form-control input-md triggerTotalAmounts'
+						}}
+					) }}
+				</div>
+			</div>
+
+			<div class="form-group">
+				{{ form_label(form.isPaid, null, {
+					'label_attr': {
+						'class': 'col-md-3 control-label'
+					}}
+				) }}
+				{{ form_errors(form.isPaid) }}
+				<div class="col-md-9">
+					{{ form_widget(form.isPaid, {
+						'attr': {
+							'class': 'form-control input-md'
+						}}
+					) }}
+				</div>
+			</div>
+
+			<div class="form-group">
+				{{ form_label(form.dueDate, null, {
+					'label_attr': {
+						'class': 'col-md-3 control-label'
+					}}
+				) }}
+				{{ form_errors(form.dueDate) }}
+				<div class="col-md-9">
+					{{ form_widget(form.dueDate, {
+						'attr': {
+							'class': 'form-control input-md'
+						}}
+					) }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br/>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+			<th><h4>Service</h4></th>
+			<th><h4>Type</h4></th>
+            <th><h4>Price</h4></th>
+			<th></th>
+        </tr>
+        </thead>
+		<tbody id="invoiceDetailsTable" class="invoiceDetails" data-prototype="
+			{% filter escape %}
+				 {{ include('CrmAppBundle:Invoices:invoice_detail_prototype.html.twig', { 'form': form.invoiceDetails.vars.prototype }) }}
+			 {% endfilter %}">
+
+		{% for invoiceDetail in form.invoiceDetails %}
+{#			<tr id="Invoice_invoiceDetails_{{ loop.index0 }}">#}
+				{{ include('CrmAppBundle:Invoices:invoice_detail_prototype.html.twig', { 'form': invoiceDetail }) }}
+{#			</tr>#}
+		{% endfor %}
+		</tbody>
+    </table>
+	<div><a href="javascript:;" id="newInvoiceDetail" class="btn btn-default"><span class="glyphicon glyphicon-plus"> Add</span></a></div>
+
+    <div class="row text-right">
+		<div class="col-md-8"></div>
+        <div class="col-md-2">
+            <p>
+                <strong>
+                    Taxable : <br>
+                    VAT : <br>
+                    TAX : <br>
+                    Outlays : <br>
+                    Total : <br>
+                </strong>
+            </p>
+        </div>
+        <div class="col-md-2">
+            <strong>
+                <span id="taxableAmount">0.00</span> {{ currency }}<br>
+				<span id="vatAmount">0.00</span> {{ currency }}<br>
+				<span id="taxAmount">0.00</span> {{ currency }}<br>
+				<span id="outlayAmount">0.00</span> {{ currency }}<br>
+				<span id="totalAmount">0.00</span> {{ currency }}<br>
+            </strong>
+        </div>
+    </div>
+
+	<div class="form-group">
+		{{ form_widget(form.save, {
+			'attr': {
+				'class': 'btn btn-default'
+			}
+		}) }}
+	</div>
+	<div class="hidden">
+		{{ form_label(form.company, null) }}
+		{{ form_widget(form.company) }}
+
+		{{ form_label(form.invoiceDetails, null) }}
+		{{ form_widget(form.invoiceDetails) }}
+	</div>
+	{{ form_end(form) }}
+
+    <div class="row">
+        <div class="col-xs-5">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4>Bank details</h4>
+                </div>
+                <div class="panel-body">
+                    <p>{{ own_contact.name }} {{ own_contact.surname }}</p>
+                    <p>{{ bank_account.name }}</p>
+                    <p>SWIFT : {{ bank_account.swift }}</p>
+                    <p>IBAN : {{ bank_account.iban }}</p>
+                    <p>Account Number : {{ bank_account.number }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-7">
+            <div class="span7">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4>Contact Details</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Email : {{ own_contact.email }} <br><br>
+                            Mobile : {{ own_contact.phone }} <br> <br>
+                            Twitter  : <a href="https://twitter.com/{{ own_contact.twitter }}">@{{ own_contact.twitter }}</a>
+                        </p>
+                        <h4><small>payment should be mabe by Bank Transfer</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

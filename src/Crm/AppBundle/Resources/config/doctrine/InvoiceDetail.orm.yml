@@ -1,0 +1,40 @@
+Crm\AppBundle\Entity\InvoiceDetail:
+    type: entity
+    table: invoice_detail
+    repositoryClass: Crm\AppBundle\Entity\InvoiceDetailRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        type:
+            type: string
+            columnDefinition: ENUM('incoming','expense','outlay')
+        description:
+            type: string
+            length: 255
+        amount:
+            type: decimal
+            precision: 7
+            scale: 2
+        createdAt:
+            type: datetime
+            column: created_at
+            columnDefinition: TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        updatedAt:
+            type: datetime
+            column: updated_at
+            nullable: true
+    manyToOne:
+        invoice:
+            targetEntity: Invoice
+            inversedBy: InvoiceDetail
+            joinColumn:
+                name: id_invoice
+                referencedColumnName: id
+                onDelete: CASCADE
+    lifecycleCallbacks:
+        prePersist: [onPrePersist]
+        preUpdate: [onPreUpdate]

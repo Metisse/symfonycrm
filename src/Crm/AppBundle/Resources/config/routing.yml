@@ -1,0 +1,60 @@
+crm_app_homepage:
+    path:     /
+    methods:  [GET]
+    defaults: { _controller: CrmAppBundle:Companies:list }
+crm_app_company_list:
+    path:     /
+    methods:  [GET]
+    defaults: { _controller: CrmAppBundle:Companies:list }
+crm_app_company_show:
+    path:     /company/show/{id}
+    methods:  [GET]
+    defaults: { _controller: CrmAppBundle:Companies:show }
+crm_app_company_add:
+    path:     /company/new
+    methods:  [GET,POST]
+    defaults: { _controller: CrmAppBundle:Companies:new }
+crm_app_company_edit:
+    path:     /company/edit/{id}
+    methods:  [GET,POST]
+    defaults: { _controller: CrmAppBundle:Companies:edit }
+crm_app_company_delete:
+    path:     /company/delete/{id}
+    methods:  [GET]
+    defaults: { _controller: CrmAppBundle:Companies:delete }
+crm_app_contact_list:
+    path:     /contacts
+    methods:  [GET]
+    defaults: { _controller: CrmAppBundle:Contacts:list }
+crm_app_contact_add:
+    path:     /contact/new
+    methods:  [GET,POST]
+    defaults: { _controller: CrmAppBundle:Contacts:new }
+crm_app_contact_edit:
+    path:     /contact/edit/{id}
+    methods:  [GET,POST]
+    defaults: { _controller: CrmAppBundle:Companies:edit }
+crm_app_contact_delete:
+    path:     /contact/delete/{id}
+    methods:  [GET]
+    defaults: { _controller: CrmAppBundle:Companies:delete }
+crm_app_invoice_list:
+    path:     /invoices
+    methods:  [GET]
+    defaults: { _controller: CrmAppBundle:Invoices:list }
+crm_app_invoice_show:
+    path:     /company/{id_company}/invoice/show/{id}
+    methods:  [GET]
+    defaults: { _controller: CrmAppBundle:Invoices:show }
+crm_app_invoice_add:
+    path:     /company/{id_company}/invoice/new
+    methods:  [GET,POST]
+    defaults: { _controller: CrmAppBundle:Invoices:new }
+crm_app_invoice_edit:
+    path:     /company/{id_company}/invoice/edit/{id}
+    methods:  [GET,POST]
+    defaults: { _controller: CrmAppBundle:Invoices:edit }
+crm_app_invoice_delete:
+    path:     /company/{id_company}/invoice/delete/{id}
+    methods:  [GET]
+    defaults: { _controller: CrmAppBundle:Invoices:delete }

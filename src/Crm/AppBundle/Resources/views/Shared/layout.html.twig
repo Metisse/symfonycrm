@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="Manel Pérez">
+
+	<title>{% block title %}Crm{% endblock title %}</title>
+	{% block stylesheets %}
+		<link href="{{ asset('bundles/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"/>
+		{#% stylesheets 'bundles/crmapp/css/*' filter='cssrewrite' %}
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"/>
+		<link rel="stylesheet" href="{{ asset_url }}" />
+		{% endstylesheets %#}
+	{% endblock stylesheets %}
+	{% block javascript %}
+		{#
+		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		#}
+		<script src="{{ asset('bundles/jquery/jquery.min.js') }}"></script>
+		<script src="{{ asset('bundles/bootstrap/js/bootstrap.min.js') }}"></script>
+		<script src="{{ asset('bundles/crmapp/js/main.js') }}"></script>
+	{% endblock javascript %}
+</head>
+<body>
+
+<!-- Wrap all page content here -->
+<div id="wrap">
+
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+
+			{% if is_granted("ROLE_ADMIN") %}
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<p class="navbar-text pull-left">Hello <strong>{{ app.user.firstName }}</strong>!</p>
+					<ul class="nav navbar-nav pull-right">
+						<li class="dropdown">
+							<a href="{$url.base}" class="dropdown-toggle" data-toggle="dropdown">Companies <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="{{ url('crm_app_company_list') }}"><span class="glyphicon glyphicon-th-list"> List</span></a></li>
+								<li><a href="{{ url('crm_app_company_add') }}"><span class="glyphicon glyphicon-plus"> Add</span></a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Contacts <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="{{ url('crm_app_contact_list') }}"><span class="glyphicon glyphicon-th-list"> List</span></a></li>
+								<li><a href="{{ url('crm_app_contact_add') }}"><span class="glyphicon glyphicon-plus"> Add</span></a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Invoices <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="{{ url('crm_app_invoice_list') }}"><span class="glyphicon glyphicon-th-list"> List</span></a></li>
+								{#<li><a href="{{ url('crm_app_invoice_add') }}"><span class="glyphicon glyphicon-plus"> Add</span></a></li>#}
+							</ul>
+						</li>
+						<li><a href="{{ url('fos_user_security_logout') }}" class="logout">Logout</a></li>
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			{% endif %}
+		</div><!-- /.container-fluid -->
+	</nav>
+	<!-- Begin page content -->
+	<div class="container">
+		{#if isset( $modules.system_messages)}
+		<div class="row">
+			{$modules.system_messages nofilter}
+		</div>
+		{/if#}
+		{%  block body %}{% endblock body %}
+	</div>
+</div>
+
+<div id="footer">
+	<br/>
+	<div class="container">
+		<p class="text-muted credit">Copyright © - All rights reserved</p>
+	</div>
+</div>
+
+</body>
+</html>

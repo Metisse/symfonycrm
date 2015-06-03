@@ -1,0 +1,52 @@
+{% extends 'CrmAppBundle:Shared:layout.html.twig' %}
+
+{% block title %}Contacts{% endblock %}
+
+{% block body %}
+
+	<div class="page-header">
+		<span class="pull-right"><a href="{{ url('crm_app_contact_add') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"> Add</span></a></span>
+		<h1>Contacts</h1>
+	</div>
+
+	<table class="table table-stripped table-hover">
+		<thead>
+		<tr>
+			<th>#ID</th>
+			<th>Name</th>
+			<th>Surname</th>
+            <th>Company</th>
+			<th>Email</th>
+			<th>Phone</th>
+            <th>Created By</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for contact in contacts %}
+		<tr>
+			<td>{{ contact.id }}</td>
+			<td>{{ contact.name }}</td>
+			<td>{{ contact.surname }}</td>
+            <td>{{ contact.company.name }}</td>
+			<td>{{ contact.email }}</td>
+			<td>{{ contact.phone }}</td>
+            <td>{{ contact.user.username }}</td>
+			<td>
+				<a href="{{ url('crm_app_contact_edit', {'id':contact.id}) }}">
+					<span class="glyphicon glyphicon-pencil"></span>
+				</a>
+				<a href="{{ url('crm_app_contact_delete', {'id':contact.id}) }}" onclick="return confirm('Are you sure?')">
+					<span class="glyphicon glyphicon-trash"></span>
+				</a>
+			</td>
+		</tr>
+		{% else %}
+		<tr>
+			<td colspan="9"><span class="label label-success">Yipee!</span> It seems that you don't have any contact to list!</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

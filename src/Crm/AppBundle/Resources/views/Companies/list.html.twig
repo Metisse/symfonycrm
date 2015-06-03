@@ -1,0 +1,70 @@
+{% extends 'CrmAppBundle:Shared:layout.html.twig' %}
+
+{% block title %}Companies{% endblock %}
+
+{% block body %}
+
+	<div class="page-header">
+		<span class="pull-right"><a href="{{ url('crm_app_contact_add') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"> Add</span></a></span>
+		<h1>Companies</h1>
+	</div>
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+	<table class="table table-stripped table-hover">
+		<thead>
+		<tr>
+			<th>#ID</th>
+			<th>Name</th>
+			<th>Tax Code</th>
+			<th>City</th>
+			<th>Province</th>
+			<th>Zip Code</th>
+			<th>Country</th>
+			<th>Email</th>
+			<th>Phone</th>
+			<th>Fax</th>
+			<th>Website</th>
+            <th>Created By</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for company in companies %}
+		<tr>
+			<td>{{ company.id }}</td>
+			<td>{{ company.name }}</td>
+			<td>{{ company.taxCode }}</td>
+			<td>{{ company.city }}</td>
+			<td>{{ company.province.name }}</td>
+			<td>{{ company.zipCode }}</td>
+			<td>{{ company.country.name }}</td>
+			<td>{% if company.email %}<a href="mailto:{{ company.email }}">{{ company.email }}</a>{% endif %}</td>
+			<td>{{ company.phone }}</td>
+			<td>{{ company.fax }}</td>
+			<td>{% if company.website %}<a href="{{ company.website }}" target="blank">{{ company.website }}</a>{% endif %}</td>
+			<td>{{ company.user.username }}</td>
+            <td>
+				<a href="{{ url('crm_app_company_show', {'id':company.id}) }}">
+					<span class="glyphicon glyphicon-eye-open"></span>
+				</a>
+				<a href="{{ url('crm_app_company_edit', {'id':company.id}) }}">
+					<span class="glyphicon glyphicon-pencil"></span>
+				</a>
+				<a href="{{ url('crm_app_company_delete', {'id':company.id}) }}" onclick="return confirm('Are you sure?')">
+					<span class="glyphicon glyphicon-trash"></span>
+				</a>
+			</td>
+		</tr>
+		{% else %}
+		<tr>
+			<td colspan="9"><span class="label label-success">Yipee!</span> It seems that you don't have any company to list!</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

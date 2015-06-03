@@ -1,0 +1,15 @@
+Crm\AppBundle\Entity\Country:
+    type: entity
+    table: country
+    repositoryClass: Crm\AppBundle\Entity\CountryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

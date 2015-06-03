@@ -1,0 +1,3 @@
+hostname: symfonycrm
+hosts:
+  - symfonycrm.com.dev

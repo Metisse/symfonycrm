@@ -1,0 +1,129 @@
+{% extends 'CrmAppBundle:Shared:layout.html.twig' %}
+
+{% block title %}Invoice #{{ invoice.reference }}{% endblock %}
+
+{% block body %}
+
+	<div class="page-header">
+		<span class="pull-right"><a href="{{ url('crm_app_invoice_delete', {'id': invoice.id, 'id_company': invoice.company.id}) }}" class="btn btn-default" onclick="return confirm('Are you sure?')"><span class="glyphicon glyphicon-trash"> Delete</span></a></span>
+		<span class="pull-right"><a href="{{ url('crm_app_invoice_edit', {'id': invoice.id, 'id_company': invoice.company.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"> Edit</span></a></span>
+		<h1>Invoice #{{ invoice.reference }}</h1>
+	</div>
+
+
+	<br/>
+	<div class="row">
+		<div class="col-xs-5">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>From: {% if own_company.website %}<a href="{{ own_company.website }}" target="blank">{{ own_company.name }}</a>{% else %}{{ own_company.name }}{% endif %} ({{ own_company.tax_code }})</h4>
+				</div>
+				<div class="panel-body">
+					<address>
+						{{ own_company.address }} <br>
+						{{ own_company.zip_code }} - {{ own_company.city }} <br>
+						{{ own_company.province }} ({{ own_company.country }}) <br><br>
+
+						{% if own_company.phone %}<span class="glyphicon glyphicon-earphone"> {{ own_company.phone }}</span><br>{% endif %}
+                        {% if own_company.fax %}<span class="glyphicon glyphicon-print"> {{ own_company.fax }}</span><br>{% endif %}
+                        {% if own_company.email %}<span class="glyphicon glyphicon-envelope"> <a href="mailto:{{ own_company.email }}">{{ own_company.email }}</a></span>{% endif %}
+					</address>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-5 col-xs-offset-2 text-right">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>To : <a href="{{ url('crm_app_company_show', {'id':invoice.company.id}) }}">{{ invoice.company.name }}</a> ({{ invoice.company.taxCode }})</h4>
+				</div>
+				<div class="panel-body">
+					<address>
+						{{ invoice.company.address }}<br>
+						{{ invoice.company.zipCode }} - {{ invoice.company.city }}<br>
+						{{ invoice.company.province.name }} ({{ invoice.company.country.name }})<br><br>
+						<span class="glyphicon glyphicon-earphone"> {{ invoice.company.phone }}</span><br>
+						<span class="glyphicon glyphicon-print"> {{ invoice.company.fax }}</span><br>
+						<span class="glyphicon glyphicon-envelope"> <a href="mailto:{{ invoice.company.email }}">{{ invoice.company.email }}</a></span>
+					</address>
+				</div>
+			</div>
+		</div>
+	</div> <!-- / end client details section -->
+
+	<table class="table table-bordered">
+		<thead>
+		<tr>
+			<th><h4>Service</h4></th>
+			<th><h4>Price</h4></th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for invoiceDetail in invoice.invoiceDetails %}
+			{% if 'outlay' != invoiceDetail.type %}
+				<tr>
+					<td class="col-xs-12 col-sm-6 col-lg-8">{{ invoiceDetail.description }}</td>
+					<td class="col-xs-6 col-lg-4 text-right">{{ invoiceDetail.amount }} {{ currency }}</td>
+				</tr>
+			{% endif %}
+		{% endfor %}
+		</tbody>
+	</table>
+
+	<div class="row text-right">
+		<div class="col-xs-2 col-xs-offset-8">
+			<p>
+				<strong>
+					Taxable : <br>
+					VAT : <br>
+					TAX : <br>
+					{% if invoice_totals.outlays %}Outlays : <br>{% endif %}
+					Total : <br>
+				</strong>
+			</p>
+		</div>
+		<div class="col-xs-2">
+			<strong>
+				{{ invoice_totals.taxable }} {{ currency }}<br>
+				{{ invoice_totals.vat }} {{ currency }}<br>
+				{{ invoice_totals.taxes }} {{ currency }}<br>
+				{% if invoice_totals.outlays %}{{ invoice_totals.outlays }} {{ currency }}<br>{% endif %}
+				{{ invoice_totals.total }} {{ currency }}<br>
+			</strong>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-5">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h4>Bank details</h4>
+				</div>
+				<div class="panel-body">
+					<p>{{ own_contact.name }} {{ own_contact.surname }}</p>
+					<p>{{ bank_account.name }}</p>
+					<p>SWIFT : {{ bank_account.swift }}</p>
+					<p>IBAN : {{ bank_account.iban }}</p>
+					<p>Account Number : {{ bank_account.number }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-7">
+			<div class="span7">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h4>Contact Details</h4>
+					</div>
+					<div class="panel-body">
+						<p>
+							Email : {{ own_contact.email }} <br><br>
+							Mobile : {{ own_contact.phone }} <br> <br>
+							Twitter  : <a href="https://twitter.com/{{ own_contact.twitter }}">@{{ own_contact.twitter }}</a>
+						</p>
+						<h4><small>payment should be mabe by Bank Transfer</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

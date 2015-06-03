@@ -1,0 +1,69 @@
+CrmAppBundle\Entity\Company:
+    properties:
+        name:
+            - NotBlank: ~
+            - Type: \Text
+        taxCode:
+            - NotBlank: ~
+            - Type: \Text
+        address:
+            - NotBlank: ~
+            - Type: \Text
+        city:
+            - NotBlank: ~
+            - Type: \Text
+        province:
+            - NotBlank: ~
+            - Type: \Number
+        zipCode:
+            - NotBlank: ~
+            - Type: \Number
+        country:
+            - NotBlank: ~
+            - Type: \Number
+        email:
+            - NotBlank: ~
+            - Type: \Email
+        phone:
+            - NotBlank: ~
+            - Type: \Text
+        fax:
+            - Type: \Text
+        website:
+            - Type: \Url
+CrmAppBundle\Entity\Contact:
+    properties:
+        name:
+            - NotBlank: ~
+            - Type: \Text
+        surname:
+            - NotBlank: ~
+            - Type: \Text
+        company:
+            - NotBlank: ~
+            - Type: \Number
+        email:
+            - NotBlank: ~
+            - Type: \Email
+        phone:
+            - NotBlank: ~
+            - Type: \Text
+CrmAppBundle\Entity\Invoice:
+    properties:
+        reference:
+            - NotBlank: ~
+            - Type: \Text
+        totalTaxable:
+            - Type: \Number
+        totalExpenses:
+            - Type: \Number
+        totalOutlays:
+            - Type: \Number
+        vat:
+            - NotBlank: ~
+            - Type: \Number
+        tax:
+            - NotBlank: ~
+            - Type: \Number
+        dueDate:
+            - Type: \Date

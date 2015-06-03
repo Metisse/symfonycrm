@@ -1,0 +1,21 @@
+Crm\AppBundle\Entity\Province:
+    type: entity
+    table: province
+    repositoryClass: Crm\AppBundle\Entity\ProvinceRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+    manyToOne:
+        country:
+            targetEntity: Country
+            joinColumn:
+                name: id_country
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

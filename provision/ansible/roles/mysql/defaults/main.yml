@@ -1,0 +1,18 @@
+# List of databases to be created
+mysql_databases:
+  - name: symfonycrm
+    collation: "utf8_general_ci"        # optional, defaults to "utf8_general_ci"
+    encoding: "utf8"                    # optional, defaults to "utf8"
+
+# List of users to be created
+mysql_users:
+  # Read Only user.
+  - name: symfonycrmuserr
+    pass: hjC7E4tZXNDsrKr8
+    priv: "symfonycrm.*:SELECT"                         # optional, defaults to "*.*:ALL"
+    host: "localhost"                                   # optional, defaults to "localhost"
+  # Write user.
+  - name: symfonycrmuserw
+    pass: w8edwJBEavcrnTHQ
+    priv: "symfonycrm.*:SELECT,INSERT,UPDATE,DELETE"    # optional, defaults to "*.*:ALL"
+    host: "localhost"                                   # optional, defaults to "localhost"

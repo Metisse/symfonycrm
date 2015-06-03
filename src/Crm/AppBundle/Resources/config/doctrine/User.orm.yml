@@ -1,0 +1,44 @@
+Crm\AppBundle\Entity\User:
+    type:  entity
+    table: fos_user
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        username:
+            type: string
+            length: 255
+        usernameCanonical:
+            column: username_canonical
+            type: string
+            length: 255
+            unique: true
+        email:
+            type: string
+            length: 255
+        emailCanonical:
+            column: email_canonical
+            type: string
+            length: 255
+            unique: true
+        enabled:
+            type: boolean
+        firstName:
+            column: first_name
+            type: string
+            length: 255
+        lastName:
+            column: last_name
+            type: string
+            length: 255
+        password:
+            type: string
+            length: 255
+        lastLogin:
+            column: last_login
+            type: datetime
+            nullable: true
+        roles:
+            type: array
