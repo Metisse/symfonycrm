@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Symfonycrm by manelpm10</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Symfonycrm</h1>
+      <h2 class="project-tagline">Simple CRM and Invoice Manager using Symfony Framework</h2>
+      <a href="https://github.com/manelpm10/symfonycrm" class="btn">View on GitHub</a>
+      <a href="https://github.com/manelpm10/symfonycrm/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/manelpm10/symfonycrm/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="symfony-crm-application" class="anchor" href="#symfony-crm-application" aria-hidden="true"><span class="octicon octicon-link"></span></a>Symfony CRM Application</h1>
+
+<p>Welcome to the Symfony CRM - a simple CRM using Symfony2 Framework.  </p>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<p>This repository includes the source code of the application and the development environment based in Vagrant.  </p>
+
+<p>It uses VirtualBox as provider and Ansible as provisioner.  </p>
+
+<ul>
+<li>
+<a href="https://www.vagrantup.com/" title="Vagrant">Vagrant</a><br>
+</li>
+<li>
+<a href="https://www.virtualbox.org/" title="VirtualBox">VirtualBox</a><br>
+</li>
+<li>
+<a href="http://www.ansible.com/home" title="Ansible">Ansible</a>. If you don't have it installed in your host machine it will install and execute it automatically in the virtual server.<br>
+</li>
+</ul>
+
+<h2>
+<a id="how-to-launch-the-server-for-development" class="anchor" href="#how-to-launch-the-server-for-development" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to launch the server for development</h2>
+
+<ol>
+<li>
+<p>To launch it you just need to execute:  </p>
+
+<p>$ vagrant up  </p>
+</li>
+<li>
+<p>For see the SymfonyCRM in your web browser, add this line in your C:\Windows\System32\drivers\etc\hosts (for Windows users) or /etc/hosts (for Linux users) file:  </p>
+
+<p>192.168.56.182  symfonycrm.com.dev  </p>
+</li>
+<li>
+<p>You need to execute "composer" to obtain an executable project. Just do:  </p>
+
+<p>$ cd /var/www/workspace/symfonycrm/  </p>
+
+<p>$ composer install  </p>
+</li>
+<li>
+<p>Create database  </p>
+
+<p>$ php app/console doctrine:schema:create</p>
+</li>
+<li>
+<p>Add some dummy data</p>
+
+<p>$ mysql -uroot symfonycrm &lt; fixtures/dummy-data.sql</p>
+</li>
+</ol>
+
+<p>Just go to the address in your browser: <a href="http://symfonycrm.com.dev/" title="Symfony CRM">http://symfonycrm.com.dev/</a></p>
+
+<ul>
+<li>LOGIN: admin</li>
+<li>PASSWORD: admin</li>
+</ul>
+
+<h2>
+<a id="whats-inside" class="anchor" href="#whats-inside" aria-hidden="true"><span class="octicon octicon-link"></span></a>What's inside?</h2>
+
+<p>The Symfony CRM is configured with the following defaults:  </p>
+
+<ul>
+<li><p>Twig as the only configured template engine;  </p></li>
+<li><p>Doctrine ORM/DBAL;  </p></li>
+<li><p>Swiftmailer;  </p></li>
+</ul>
+
+<p>And the following bundles:  </p>
+
+<ul>
+<li><p><strong>FrameworkBundle</strong> - The core Symfony framework bundle  </p></li>
+<li><p>[<strong>SensioFrameworkExtraBundle</strong>][6] - Adds several enhancements, including<br>
+template and routing annotation capability  </p></li>
+<li><p>[<strong>DoctrineBundle</strong>][7] - Adds support for the Doctrine ORM  </p></li>
+<li><p>[<strong>TwigBundle</strong>][8] - Adds support for the Twig templating engine  </p></li>
+<li><p>[<strong>SecurityBundle</strong>][9] - Adds security by integrating Symfony's security<br>
+component  </p></li>
+<li><p>[<strong>SwiftmailerBundle</strong>][10] - Adds support for Swiftmailer, a library for<br>
+sending emails  </p></li>
+<li><p>[<strong>MonologBundle</strong>][11] - Adds support for Monolog, a logging library  </p></li>
+<li><p>[<strong>AsseticBundle</strong>][12] - Adds support for Assetic, an asset processing<br>
+library  </p></li>
+<li><p><strong>WebProfilerBundle</strong> (in dev/test env) - Adds profiling functionality and<br>
+the web debug toolbar  </p></li>
+<li><p><strong>SensioDistributionBundle</strong> (in dev/test env) - Adds functionality for<br>
+configuring and working with Symfony distributions  </p></li>
+<li><p>[<strong>SensioGeneratorBundle</strong>]<a href="in%20dev/test%20env">13</a> - Adds code generation<br>
+capabilities  </p></li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/manelpm10/symfonycrm">Symfonycrm</a> is maintained by <a href="https://github.com/manelpm10">manelpm10</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
