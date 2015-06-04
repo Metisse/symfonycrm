@@ -14,7 +14,7 @@ class InvoiceRepository extends EntityRepository
 {
     public function getNextReferenceNumber()
     {
-        $reference_slug = date('Ym');
+        $reference_slug = date('Y');
 
         $dql = <<<DQL
 SELECT
