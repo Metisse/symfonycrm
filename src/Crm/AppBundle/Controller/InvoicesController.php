@@ -11,19 +11,29 @@ use Symfony\Component\HttpFoundation\Request;
 class InvoicesController extends Controller
 {
     /**
+     * @var integer Page size.
+     */
+    const PAGE_SIZE = 10;
+
+    /**
      * Action to show the list of invoices.
      *
+     * @param integer $page The current page.
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction()
+    public function listAction($page)
     {
-        $repository = $this->getDoctrine()
-            ->getRepository('CrmAppBundle:Invoice');
-        $invoices = $repository->findAll();
+        $invoices = $this->getDoctrine()
+            ->getRepository('CrmAppBundle:Invoice')
+            ->getInvoicesList($page, self::PAGE_SIZE);
 
         return $this->render(
             'CrmAppBundle:Invoices:list.html.twig',
-            array( 'invoices' => $invoices )
+            array(
+                'invoices'      => $invoices->getIterator(),
+                'current_page'  => $page,
+                'total_pages'   => ceil( $invoices->count() / self::PAGE_SIZE)
+            )
         );
     }
 

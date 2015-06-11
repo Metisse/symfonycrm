@@ -9,20 +9,30 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ContactsController extends Controller
 {
-	/**
+    /**
+     * @var integer Page size.
+     */
+    const PAGE_SIZE = 10;
+
+    /**
 	 * Action to show the list of contacts.
 	 *
+     * @param integer $page The current page.
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function listAction()
+	public function listAction($page)
     {
-		$repository = $this->getDoctrine()
-			->getRepository('CrmAppBundle:Contact');
-		$contacts = $repository->findAll();
+        $contacts = $this->getDoctrine()
+            ->getRepository('CrmAppBundle:Contact')
+            ->getContactsList($page, self::PAGE_SIZE);
 
         return $this->render(
 			'CrmAppBundle:Contacts:list.html.twig',
-			array( 'contacts'	=> $contacts )
+			array(
+                'contacts'	    => $contacts->getIterator(),
+                'current_page'  => $page,
+                'total_pages'   => ceil( $contacts->count() / self::PAGE_SIZE)
+            )
 		);
 	}
 

@@ -9,20 +9,30 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CompaniesController extends Controller
 {
+    /**
+     * @var integer Page size.
+     */
+    const PAGE_SIZE = 10;
+
 	/**
 	 * Action to show the list of companies.
 	 *
+     * @param integer $page The current page.
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function listAction()
+	public function listAction($page)
     {
-		$repository = $this->getDoctrine()
-			->getRepository('CrmAppBundle:Company');
-		$companies = $repository->findAll();
+		$companies = $this->getDoctrine()
+            ->getRepository('CrmAppBundle:Company')
+            ->getCompaniesList($page, self::PAGE_SIZE);
 
         return $this->render(
 			'CrmAppBundle:Companies:list.html.twig',
-			array( 'companies'	=> $companies )
+			array(
+                'companies'     => $companies->getIterator(),
+                'current_page'  => $page,
+                'total_pages'   => ceil( $companies->count() / self::PAGE_SIZE)
+            )
 		);
 	}
 
