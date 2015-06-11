@@ -1,0 +1,23 @@
+{% if total_pages > 0 %}
+    <nav class="text-center">
+        <ul class="pagination">
+            {% for page in 1..total_pages %}
+                {% if loop.first %}
+                    <li class="{% if current_page == 1 %}disabled{% endif %}">
+                        <a href="{{ url(base_route, {'page':current_page-1}) }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="{% if current_page == page %}disabled{% endif %}"><a href="{{ url(base_route, {'page': page}) }}">{{ page }}</a></li>
+                {% if loop.last %}
+                    <li class="{% if current_page == total_pages %}disabled{% endif %}">
+                        <a href="{{ url(base_route, {'page':current_page+1}) }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+{% endif %}

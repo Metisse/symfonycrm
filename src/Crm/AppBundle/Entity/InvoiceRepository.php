@@ -3,6 +3,7 @@
 namespace Crm\AppBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * InvoiceRepository
@@ -12,6 +13,32 @@ use Doctrine\ORM\EntityRepository;
  */
 class InvoiceRepository extends EntityRepository
 {
+    /**
+     * Get list of invoices filtered and paginated.
+     *
+     * @param int $page Current page.
+     * @param int $page_size Number of items per page.
+     * @return Paginator
+     */
+    public function getInvoicesList($page=1, $page_size = 10) {
+        $dql = <<<'DQL'
+SELECT c FROM
+    CrmAppBundle:invoice c
+DQL;
+
+        $query = $this->getEntityManager()
+            ->createQuery($dql)
+            ->setFirstResult( $page_size * ( $page - 1 ) )
+            ->setMaxResults( $page_size );
+
+        return new Paginator($query);
+    }
+
+    /**
+     * Return the next reference number.
+     *
+     * @return string
+     */
     public function getNextReferenceNumber()
     {
         $reference_slug = date('Y');

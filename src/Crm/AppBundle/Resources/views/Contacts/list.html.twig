@@ -1,6 +1,6 @@
 {% extends 'CrmAppBundle:Shared:layout.html.twig' %}
 
-{% block title %}Contacts{% endblock %}
+{% block title %}Contacts{% if current_page > 1 %} - Page {{ current_page }}{% endif %}{% endblock %}
 
 {% block body %}
 
@@ -24,29 +24,31 @@
 		</thead>
 		<tbody>
 		{% for contact in contacts %}
-		<tr>
-			<td>{{ contact.id }}</td>
-			<td>{{ contact.name }}</td>
-			<td>{{ contact.surname }}</td>
-            <td>{{ contact.company.name }}</td>
-			<td>{{ contact.email }}</td>
-			<td>{{ contact.phone }}</td>
-            <td>{{ contact.user.username }}</td>
-			<td>
-				<a href="{{ url('crm_app_contact_edit', {'id':contact.id}) }}">
-					<span class="glyphicon glyphicon-pencil"></span>
-				</a>
-				<a href="{{ url('crm_app_contact_delete', {'id':contact.id}) }}" onclick="return confirm('Are you sure?')">
-					<span class="glyphicon glyphicon-trash"></span>
-				</a>
-			</td>
-		</tr>
+            <tr>
+                <td>{{ contact.id }}</td>
+                <td>{{ contact.name }}</td>
+                <td>{{ contact.surname }}</td>
+                <td>{{ contact.company.name }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.phone }}</td>
+                <td>{{ contact.user.username }}</td>
+                <td>
+                    <a href="{{ url('crm_app_contact_edit', {'id':contact.id}) }}" title="Edit contact">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a href="{{ url('crm_app_contact_delete', {'id':contact.id}) }}" title="Delete contact" onclick="return confirm('Are you sure?')">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </td>
+            </tr>
 		{% else %}
-		<tr>
-			<td colspan="9"><span class="label label-success">Yipee!</span> It seems that you don't have any contact to list!</td>
-		</tr>
+            <tr>
+                <td colspan="9"><span class="label label-success">Yipee!</span> It seems that you don't have any contact to list!</td>
+            </tr>
 		{% endfor %}
 		</tbody>
 	</table>
+
+    {% include 'CrmAppBundle:Shared:pagination.html.twig' with {'base_route': 'crm_app_contact_list'} %}
 
 {% endblock %}

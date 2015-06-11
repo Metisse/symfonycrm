@@ -1,6 +1,6 @@
 {% extends 'CrmAppBundle:Shared:layout.html.twig' %}
 
-{% block title %}Invoices{% endblock %}
+{% block title %}Invoices{% if current_page > 1 %} - Page {{ current_page }}{% endif %}{% endblock %}
 
 {% block body %}
 
@@ -24,33 +24,35 @@
 		</thead>
 		<tbody>
 		{% for invoice in invoices %}
-		<tr>
-			<td>{{ invoice.reference }}</td>
-            <td>{{ invoice.company.name }}</td>
-            <td>{{ invoice.totalTaxable }}</td>
-            <td>{{ invoice.totalExpenses }}</td>
-			<td>{{ invoice.totalOutlays }}</td>
-            <td>{{ invoice.dueDate|date("d/m/Y") }}</td>
-            <td>{% if invoice.isPaid %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
-            <td>{{ invoice.user.username }}</td>
-			<td>
-				<a href="{{ url('crm_app_invoice_show', {'id':invoice.id, 'id_company':invoice.company.id}) }}">
-					<span class="glyphicon glyphicon-eye-open"></span>
-				</a>
-				<a href="{{ url('crm_app_invoice_edit', {'id':invoice.id, 'id_company':invoice.company.id}) }}">
-					<span class="glyphicon glyphicon-pencil"></span>
-				</a>
-				<a href="{{ url('crm_app_invoice_delete', {'id':invoice.id, 'id_company':invoice.company.id}) }}" onclick="return confirm('Are you sure?')">
-					<span class="glyphicon glyphicon-trash"></span>
-				</a>
-			</td>
-		</tr>
-		{% else %}
-		<tr>
-			<td colspan="9"><span class="label label-success">Yipee!</span> It seems that you don't have any invoice to list!</td>
-		</tr>
+            <tr>
+                <td>{{ invoice.reference }}</td>
+                <td>{{ invoice.company.name }}</td>
+                <td>{{ invoice.totalTaxable }}</td>
+                <td>{{ invoice.totalExpenses }}</td>
+                <td>{{ invoice.totalOutlays }}</td>
+                <td>{{ invoice.dueDate|date("d/m/Y") }}</td>
+                <td>{% if invoice.isPaid %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
+                <td>{{ invoice.user.username }}</td>
+                <td>
+                    <a href="{{ url('crm_app_invoice_show', {'id':invoice.id, 'id_company':invoice.company.id}) }}" title="Show invoice">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                    </a>
+                    <a href="{{ url('crm_app_invoice_edit', {'id':invoice.id, 'id_company':invoice.company.id}) }}" title="Edit invoice">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a href="{{ url('crm_app_invoice_delete', {'id':invoice.id, 'id_company':invoice.company.id}) }}" title="Delete invoice" onclick="return confirm('Are you sure?')">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9"><span class="label label-success">Yipee!</span> It seems that you don't have any invoice to list!</td>
+            </tr>
 		{% endfor %}
 		</tbody>
 	</table>
+
+    {% include 'CrmAppBundle:Shared:pagination.html.twig' with {'base_route': 'crm_app_invoice_list'} %}
 
 {% endblock %}
