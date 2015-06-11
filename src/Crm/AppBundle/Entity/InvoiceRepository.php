@@ -30,7 +30,12 @@ class InvoiceRepository extends EntityRepository
 
         if (!empty($filters['date'])) {
             $qb->andWhere('i.createdAt LIKE :date')
-                ->setParameter('date', '%'.$filters['date'].'%');
+               ->setParameter('date', '%'.$filters['date'].'%');
+        }
+
+        if (isset($filters['is_paid']) && $filters['is_paid'] !== '') {
+            $qb->andWhere('i.isPaid = :is_paid')
+               ->setParameter('is_paid', $filters['is_paid']);
         }
 
         $qb->setFirstResult( $page_size * ( $page - 1 ) )

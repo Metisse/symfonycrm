@@ -29,7 +29,7 @@ class InvoicesController extends Controller
 
         $filters = array(
             'date'      => empty($date)? date('Y-m'): $date,
-            'is_paid'   => (int) !empty($is_paid),
+            'is_paid'   => is_null($is_paid)? '': $is_paid,
         );
 
         $invoices = $this->getDoctrine()
