@@ -16,21 +16,31 @@ class CompanyRepository extends EntityRepository
     /**
      * Get list of companies filtered and paginated.
      *
+     * @param array $filters Filters for the query.
      * @param int $page Current page.
      * @param int $page_size Number of items per page.
      * @return Paginator
      */
-    public function getCompaniesList($page=1, $page_size = 10) {
-        $dql = <<<'DQL'
-SELECT c FROM
-    CrmAppBundle:company c
-DQL;
+    public function getCompaniesList(array $filters = array(), $page=1, $page_size = 10) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
 
-        $query = $this->getEntityManager()
-            ->createQuery($dql)
-            ->setFirstResult( $page_size * ( $page - 1 ) )
-            ->setMaxResults( $page_size );
+        $qb->add('select', 'c')
+           ->from('CrmAppBundle:Company', 'c');
 
-        return new Paginator($query);
+        $qb->where('1=1');
+        if (!empty($filters['name'])) {
+            $qb->andWhere('c.name LIKE :name')
+               ->setParameter('name', '%'.$filters['name'].'%');
+        }
+
+        if (!empty($filters['tax_code'])) {
+            $qb->andWhere('c.taxCode LIKE :tax_code')
+               ->setParameter('tax_code', '%'.$filters['tax_code'].'%');
+        }
+
+        $qb->setFirstResult( $page_size * ( $page - 1 ) )
+           ->setMaxResults( $page_size );
+
+        return new Paginator($qb->getQuery());
     }
 }

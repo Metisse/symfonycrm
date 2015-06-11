@@ -16,21 +16,31 @@ class ContactRepository extends EntityRepository
     /**
      * Get list of contacts filtered and paginated.
      *
+     * @param array $filters Filters for the query.
      * @param int $page Current page.
      * @param int $page_size Number of items per page.
      * @return Paginator
      */
-    public function getContactsList($page=1, $page_size = 10) {
-        $dql = <<<'DQL'
-SELECT c FROM
-    CrmAppBundle:contact c
-DQL;
+    public function getContactsList($filters, $page=1, $page_size = 10) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
 
-        $query = $this->getEntityManager()
-            ->createQuery($dql)
-            ->setFirstResult( $page_size * ( $page - 1 ) )
+        $qb->add('select', 'c')
+            ->from('CrmAppBundle:Contact', 'c');
+
+        $qb->where('1=1');
+        if (!empty($filters['name'])) {
+            $qb->andWhere('c.name LIKE :name')
+                ->setParameter('name', '%'.$filters['name'].'%');
+        }
+
+        if (!empty($filters['surname'])) {
+            $qb->andWhere('c.surname LIKE :surname')
+                ->setParameter('surname', '%'.$filters['surname'].'%');
+        }
+
+        $qb->setFirstResult( $page_size * ( $page - 1 ) )
             ->setMaxResults( $page_size );
 
-        return new Paginator($query);
+        return new Paginator($qb->getQuery());
     }
 }

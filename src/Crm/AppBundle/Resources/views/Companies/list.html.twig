@@ -14,6 +14,13 @@
         </div>
     {% endfor %}
 
+    <h3>Filtering:</h3>
+    <form method="post">
+        <input type="text" name="name" value="{{ filters.name }}" placeholder="Company name" />
+        <input type="text" name="tax_code" value="{{ filters.tax_code }}" placeholder="Tax Code" />
+        <input type="submit" />
+    </form>
+
 	<table class="table table-stripped table-hover">
 		<thead>
 		<tr>

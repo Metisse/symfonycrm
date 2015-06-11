@@ -17,19 +17,26 @@ class ContactsController extends Controller
     /**
 	 * Action to show the list of contacts.
 	 *
+     * @param Request $request The request object.
      * @param integer $page The current page.
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function listAction($page)
+	public function listAction(Request $request, $page)
     {
+        $filters = array(
+            'name'      => $request->request->get('name'),
+            'surname'   => $request->request->get('surname')
+        );
+
         $contacts = $this->getDoctrine()
             ->getRepository('CrmAppBundle:Contact')
-            ->getContactsList($page, self::PAGE_SIZE);
+            ->getContactsList($filters, $page, self::PAGE_SIZE);
 
         return $this->render(
 			'CrmAppBundle:Contacts:list.html.twig',
 			array(
                 'contacts'	    => $contacts->getIterator(),
+                'filters'       => $filters,
                 'current_page'  => $page,
                 'total_pages'   => ceil( $contacts->count() / self::PAGE_SIZE)
             )

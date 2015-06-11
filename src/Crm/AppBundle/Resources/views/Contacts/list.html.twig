@@ -9,6 +9,13 @@
 		<h1>Contacts</h1>
 	</div>
 
+    <h3>Filtering:</h3>
+    <form method="post">
+        <input type="text" name="name" value="{{ filters.name }}" placeholder="Contact name" />
+        <input type="text" name="surname" value="{{ filters.surname }}" placeholder="Contact surname" />
+        <input type="submit" />
+    </form>
+
 	<table class="table table-stripped table-hover">
 		<thead>
 		<tr>
@@ -28,8 +35,8 @@
                 <td>{{ contact.id }}</td>
                 <td>{{ contact.name }}</td>
                 <td>{{ contact.surname }}</td>
-                <td>{{ contact.company.name }}</td>
-                <td>{{ contact.email }}</td>
+                <td><a href="{{ url('crm_app_company_show', {'id':contact.company.id}) }}" title="Show company">{{ contact.company.name }}</a></td>
+                <td><a href="mailto:{{ contact.email }}" title="{{ contact.email }}">{{ contact.email }}</a></td>
                 <td>{{ contact.phone }}</td>
                 <td>{{ contact.user.username }}</td>
                 <td>

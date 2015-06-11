@@ -8,6 +8,13 @@
 		<h1>Invoices</h1>
 	</div>
 
+    <h3>Filtering:</h3>
+    <form method="post">
+        <input type="text" name="date" value="{{ filters.date }}" placeholder="Create at" />
+        <input type="checkbox" name="is_paid" value="1" {% if filters.is_paid > 0 %}checked="checked"{% endif %} /> Is Paid?
+        <input type="submit" />
+    </form>
+
 	<table class="table table-stripped table-hover">
 		<thead>
 		<tr>
@@ -26,7 +33,7 @@
 		{% for invoice in invoices %}
             <tr>
                 <td>{{ invoice.reference }}</td>
-                <td>{{ invoice.company.name }}</td>
+                <td><a href="{{ url('crm_app_company_show', {'id':invoice.company.id}) }}" title="Show company">{{ invoice.company.name }}</a></td>
                 <td>{{ invoice.totalTaxable }}</td>
                 <td>{{ invoice.totalExpenses }}</td>
                 <td>{{ invoice.totalOutlays }}</td>
