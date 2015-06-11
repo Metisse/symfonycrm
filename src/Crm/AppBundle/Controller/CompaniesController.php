@@ -17,19 +17,26 @@ class CompaniesController extends Controller
 	/**
 	 * Action to show the list of companies.
 	 *
+     * @param Request $request The request object.
      * @param integer $page The current page.
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function listAction($page)
+	public function listAction(Request $request, $page)
     {
+        $filters = array(
+            'name'      => $request->request->get('name'),
+            'tax_code'  => $request->request->get('tax_code')
+        );
+
 		$companies = $this->getDoctrine()
             ->getRepository('CrmAppBundle:Company')
-            ->getCompaniesList($page, self::PAGE_SIZE);
+            ->getCompaniesList($filters, $page, self::PAGE_SIZE);
 
         return $this->render(
 			'CrmAppBundle:Companies:list.html.twig',
 			array(
                 'companies'     => $companies->getIterator(),
+                'filters'       => $filters,
                 'current_page'  => $page,
                 'total_pages'   => ceil( $companies->count() / self::PAGE_SIZE)
             )

@@ -18,19 +18,29 @@ class InvoicesController extends Controller
     /**
      * Action to show the list of invoices.
      *
+     * @param Request $request The request object.
      * @param integer $page The current page.
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction($page)
+    public function listAction(Request $request, $page)
     {
+        $date       = $request->request->get('date');
+        $is_paid    = $request->request->get('is_paid');
+
+        $filters = array(
+            'date'      => empty($date)? date('Y-m'): $date,
+            'is_paid'   => is_null($is_paid)? '': $is_paid,
+        );
+
         $invoices = $this->getDoctrine()
             ->getRepository('CrmAppBundle:Invoice')
-            ->getInvoicesList($page, self::PAGE_SIZE);
+            ->getInvoicesList($filters, $page, self::PAGE_SIZE);
 
         return $this->render(
             'CrmAppBundle:Invoices:list.html.twig',
             array(
                 'invoices'      => $invoices->getIterator(),
+                'filters'       => $filters,
                 'current_page'  => $page,
                 'total_pages'   => ceil( $invoices->count() / self::PAGE_SIZE)
             )

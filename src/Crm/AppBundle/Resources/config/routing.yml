@@ -4,7 +4,7 @@ crm_app_homepage:
     defaults: { _controller: CrmAppBundle:Home:home }
 crm_app_company_list:
     path:     /companies/{page}
-    methods:  [GET]
+    methods:  [GET,POST]
     defaults: { _controller: CrmAppBundle:Companies:list, page: 1 }
 crm_app_company_show:
     path:     /company/show/{id}
@@ -24,7 +24,7 @@ crm_app_company_delete:
     defaults: { _controller: CrmAppBundle:Companies:delete }
 crm_app_contact_list:
     path:     /contacts/{page}
-    methods:  [GET]
+    methods:  [GET,POST]
     defaults: { _controller: CrmAppBundle:Contacts:list, page: 1 }
 crm_app_contact_add:
     path:     /contact/new
@@ -40,7 +40,7 @@ crm_app_contact_delete:
     defaults: { _controller: CrmAppBundle:Companies:delete }
 crm_app_invoice_list:
     path:     /invoices/{page}
-    methods:  [GET]
+    methods:  [GET,POST]
     defaults: { _controller: CrmAppBundle:Invoices:list, page: 1 }
 crm_app_invoice_show:
     path:     /company/{id_company}/invoice/show/{id}

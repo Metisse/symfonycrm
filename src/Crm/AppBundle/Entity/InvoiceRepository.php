@@ -16,22 +16,32 @@ class InvoiceRepository extends EntityRepository
     /**
      * Get list of invoices filtered and paginated.
      *
+     * @param array $filters Filters for the query.
      * @param int $page Current page.
      * @param int $page_size Number of items per page.
      * @return Paginator
      */
-    public function getInvoicesList($page=1, $page_size = 10) {
-        $dql = <<<'DQL'
-SELECT c FROM
-    CrmAppBundle:invoice c
-DQL;
+    public function getInvoicesList($filters, $page=1, $page_size = 10) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
 
-        $query = $this->getEntityManager()
-            ->createQuery($dql)
-            ->setFirstResult( $page_size * ( $page - 1 ) )
+        $qb->add('select', 'i')
+            ->from('CrmAppBundle:Invoice', 'i')
+            ->where('1=1');
+
+        if (!empty($filters['date'])) {
+            $qb->andWhere('i.createdAt LIKE :date')
+               ->setParameter('date', '%'.$filters['date'].'%');
+        }
+
+        if (isset($filters['is_paid']) && $filters['is_paid'] !== '') {
+            $qb->andWhere('i.isPaid = :is_paid')
+               ->setParameter('is_paid', $filters['is_paid']);
+        }
+
+        $qb->setFirstResult( $page_size * ( $page - 1 ) )
             ->setMaxResults( $page_size );
 
-        return new Paginator($query);
+        return new Paginator($qb->getQuery());
     }
 
     /**
