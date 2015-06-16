@@ -46,6 +46,10 @@ crm_app_invoice_show:
     path:     /company/{id_company}/invoice/show/{id}
     methods:  [GET]
     defaults: { _controller: CrmAppBundle:Invoices:show }
+crm_app_invoice_download:
+    path:     /company/{id_company}/invoice/download/{id}
+    methods:  [GET]
+    defaults: { _controller: CrmAppBundle:Invoices:download }
 crm_app_invoice_add:
     path:     /company/{id_company}/invoice/new
     methods:  [GET,POST]

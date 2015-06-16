@@ -50,6 +50,7 @@
 					<th>Outlays</th>
 					<th>Due date</th>
 					<th>Is paid?</th>
+                    <th></th>
 				</tr>
 				</thead>
 				<tbody>
@@ -61,6 +62,11 @@
 					<td>{{ invoice.totalOutlays }}</td>
 					<td>{{ invoice.dueDate|date("d/m/Y") }}</td>
 					<td>{% if invoice.isPaid %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
+                    <td>
+                        <a href="{{ url('crm_app_invoice_download', {'id':invoice.id, 'id_company':company.id}) }}" title="Download invoice PDF">
+                            <span class="glyphicon glyphicon-download-alt"></span>
+                        </a>
+                    </td>
 				</tr>
 				{% else %}
 				<tr>

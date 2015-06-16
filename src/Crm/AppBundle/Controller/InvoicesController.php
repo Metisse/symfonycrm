@@ -7,6 +7,7 @@ use Crm\AppBundle\Form\Type\InvoiceType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class InvoicesController extends Controller
 {
@@ -222,5 +223,40 @@ class InvoicesController extends Controller
         );
 
         return $this->redirectToRoute('crm_app_company_show', array('id' => $company->getId()));
+    }
+
+    /**
+     * Generates the invoice in PDF format.
+     *
+     * @param integer $id_company
+     * @param integer $id
+     */
+    public function downloadAction($id_company, $id)
+    {
+        $em         = $this->getDoctrine()->getManager();
+        $invoice    = $em->getRepository('CrmAppBundle:Invoice')->findOneById($id);
+
+        $filename   = $invoice->getReference().'.pdf';
+
+        $html = $this->renderView(
+            'CrmAppBundle:Invoices:download.html.twig',
+            array(
+                'invoice'	        => $invoice,
+                'invoice_totals'    => $this->calculateInvoiceTotalAmounts($invoice),
+                'bank_account'      => $this->container->getParameter('bank_account'),
+                'own_company'       => $this->container->getParameter('company'),
+                'own_contact'       => $this->container->getParameter('contact'),
+                'currency'          => $this->container->getParameter('currency'),
+            )
+        );
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('lowquality' => false,'encoding' => 'utf-8')),
+            200,
+            array(
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="'.$filename.'"'
+            )
+        );
     }
 }

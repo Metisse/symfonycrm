@@ -7,6 +7,7 @@
     - apache
     - php
     - mysql
+    - libraries
 
 - name: Development specific provision
   hosts: development

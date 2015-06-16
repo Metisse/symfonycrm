@@ -45,6 +45,9 @@
                 <td>{% if invoice.isPaid %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
                 <td>{{ invoice.user.username }}</td>
                 <td>
+                    <a href="{{ url('crm_app_invoice_download', {'id':invoice.id, 'id_company':invoice.company.id}) }}" title="Download invoice PDF">
+                        <span class="glyphicon glyphicon-download-alt"></span>
+                    </a>
                     <a href="{{ url('crm_app_invoice_show', {'id':invoice.id, 'id_company':invoice.company.id}) }}" title="Show invoice">
                         <span class="glyphicon glyphicon-eye-open"></span>
                     </a>

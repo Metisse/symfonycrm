@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <style>
+            table {width:100%;margin-top:20px;}
+            th {border-top:solid;border-bottom:solid;border-color:#800000;}
+            h4 {font-weight:bold;color:#800000}
+            hr {border-color:#800000}
+            .container {width:735px; padding:20px;}
+            .box {width:350px;}
+            .left {float:left;}
+            .right {float:right;}
+            .text-center {text-align:center;}
+            .text-left {text-align:left;}
+            .text-right {text-align:right;}
+            .text-top {vertical-align:text-top;}
+            .services-table {min-height:200px;padding-top:20px;border-bottom:solid;border-color:#800000;}
+            .strong {font-weight:bold;color:#800000;}
+        </style>
+    </head>
+    <body class="container">
+        {% if own_company.logo_url %}
+        <div class="text-center"><img src="{{ own_company.logo_url }}" title="logo" /></div>
+        <br/><br/>
+        {% endif %}
+        <div>
+            <div class="box left">
+                <h4>Datos de factura</h4>
+                <hr>
+                <div class="panel-body">
+                    <table>
+                        <tr>
+                            <td class="left">Fecha:</td>
+                            <td class="right">{{ invoice.createdAt|date("d/m/Y") }}</td>
+                        </tr>
+                        <tr>
+                            <td class="left">Nº de Factura:</td>
+                            <td class="right">{{ invoice.reference }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="box right">
+                <h4 class="text-left">Datos de cliente</h4>
+                <hr>
+                <div class="panel-body">
+                    {{ invoice.company.name }} ({{ invoice.company.taxCode }})<br/><br/>
+                    {{ invoice.company.address }}<br/>
+                    {{ invoice.company.zipCode }} - {{ invoice.company.city }}<br/>
+                    {{ invoice.company.province.name }} ({{ invoice.company.country.name }})
+                </div>
+            </div>
+        </div> <!-- / end client details section -->
+
+        <table class="services-table">
+            <thead>
+                <tr>
+                    <th class="text-left"><h4>Servicio</h4></th>
+                    <th class="text-right"><h4>Importe</h4></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% set counter = 0 %}
+            {% for invoiceDetail in invoice.invoiceDetails %}
+                {% if 'outlay' != invoiceDetail.type %}
+                    <tr class="text-top">
+                        <td class="text-left">{{ invoiceDetail.description }}</td>
+                        <td class="text-right">{{ invoiceDetail.amount }} {{ currency }}</td>
+                    </tr>
+                    {% set counter = counter + 1 %}
+                {% endif %}
+            {% endfor %}
+            {% for i in 1..10-counter %}
+                <tr><td colspan="2">&nbsp;</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <table class="box right text-right">
+            <tr>
+                <td class="strong">Base Imponible:</td>
+                <td>{{ invoice_totals.taxable }} {{ currency }}</td>
+            </tr>
+            <tr>
+                <td class="strong">IVA:</td>
+                <td>{{ invoice_totals.vat }} {{ currency }}</td>
+            </tr>
+            <tr>
+                <td class="strong">IRPF:</td>
+                <td>{{ invoice_totals.taxes }} {{ currency }}</td>
+            </tr>
+            {% if invoice_totals.outlays %}
+                <tr class="strong">
+                    <td>Suplicos:</td>
+                    <td>{{ invoice_totals.outlays }} {{ currency }}</td>
+                </tr>
+            {% endif %}
+            <tr class="strong">
+                <td>Total:</td>
+                <td>{{ invoice_totals.total }} {{ currency }}</td>
+            </tr>
+        </table>
+    </body>
+</html>
