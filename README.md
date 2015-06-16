@@ -45,13 +45,13 @@ Just go to the address in your browser: [http://symfonycrm.com.dev/](http://symf
   
 The Symfony CRM is configured with the following defaults:  
   
-  * Twig as the only configured template engine;  
+  * Twig as the only configured template engine
   
-  * Doctrine ORM/DBAL;  
+  * Doctrine ORM/DBAL
   
-  * Swiftmailer;  
+  * Swiftmailer
   
-And the following bundles:  
+The following bundles:
   
   * **FrameworkBundle** - The core Symfony framework bundle  
   
@@ -71,7 +71,9 @@ And the following bundles:
   * [**MonologBundle**][11] - Adds support for Monolog, a logging library  
   
   * [**AsseticBundle**][12] - Adds support for Assetic, an asset processing  
-    library  
+    library
+
+  * [**KnpSnappyBundle**][14] HTML to PDF converter
   
   * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and  
     the web debug toolbar  
@@ -80,4 +82,10 @@ And the following bundles:
     configuring and working with Symfony distributions  
   
   * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation  
-    capabilities  
+    capabilities
+
+And requieres the next libraries:
+
+  * [**wkhtmltox**](http://wkhtmltopdf.org/) wkhtmltopdf and wkhtmltoimage are
+    open source (LGPLv3) command line tools to render HTML into PDF and various
+    image formats using the QT Webkit rendering engine.
