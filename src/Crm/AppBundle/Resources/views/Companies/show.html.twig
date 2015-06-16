@@ -10,7 +10,7 @@
 
 	<div class="row">
 		<div class="col-sm-4">
-			<h3>{{ company.name }} Information</h3>
+			<h3>Information</h3>
 			<div class="text-right"><a href="{{ url('crm_app_company_edit', {'id':company.id}) }}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil"> Edit</span></a></div>
 			<address>
 				<strong>{{ company.name }}</strong><br>
@@ -23,7 +23,7 @@
 			</address>
 		</div>
 		<div class="col-sm-4">
-			<h3>{{ company.name }} Contacts</h3>
+			<h3>Contacts</h3>
 			<div class="text-right"><a href="{{ url('crm_app_contact_add') }}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"> Add</span></a></div>
 			{% for contact in contacts %}
 			<div class="panel panel-info">
@@ -38,7 +38,7 @@
 			{% endfor %}
 		</div>
 		<div class="col-sm-4">
-			<h3>{{ company.name }} Invoices</h3>
+			<h3>Invoices</h3>
 			<div class="text-right"><a href="{{ url('crm_app_invoice_add', {'id_company':company.id}) }}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"> Add</span></a></div>
 
 			<table class="table table-stripped table-hover">
