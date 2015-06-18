@@ -251,7 +251,19 @@ class InvoicesController extends Controller
                 'currency'          => $this->container->getParameter('currency'),
             )
         );
-
+/*
+return $this->render(
+    'CrmAppBundle:Invoices:download.html.twig',
+    array(
+        'invoice'	        => $invoice,
+        'invoice_totals'    => $this->calculateInvoiceTotalAmounts($invoice),
+        'bank_account'      => $this->container->getParameter('bank_account'),
+        'own_company'       => $this->container->getParameter('company'),
+        'own_contact'       => $this->container->getParameter('contact'),
+        'currency'          => $this->container->getParameter('currency'),
+    )
+);
+*/
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('lowquality' => false,'encoding' => 'utf-8')),
             200,

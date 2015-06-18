@@ -2,10 +2,12 @@
     <head>
         <style>
             table {width:100%;margin-top:20px;}
-            th {border-top:solid;border-bottom:solid;border-color:#800000;}
+            th {border-bottom:solid;border-color:#800000;}
             h4 {font-weight:bold;color:#800000}
             hr {border-color:#800000}
             .container {width:735px; padding:20px;}
+			.clear {clear:both;}
+			.logo {width:350px;}
             .box {width:350px;}
             .left {float:left;}
             .right {float:right;}
@@ -14,48 +16,95 @@
             .text-right {text-align:right;}
             .text-top {vertical-align:text-top;}
             .services-table {min-height:200px;padding-top:20px;border-bottom:solid;border-color:#800000;}
+			.long_cell {width:80%;}
+			.short_cell {width:20%;}
             .strong {font-weight:bold;color:#800000;}
         </style>
     </head>
     <body class="container">
         {% if own_company.logo_url %}
-        <div class="text-center"><img src="{{ own_company.logo_url }}" title="logo" /></div>
-        <br/><br/>
+			<div class="left logo"><img src="{{ own_company.logo_url }}" title="logo" class="logo" /></div>
         {% endif %}
+
+		<div class="box right">
+			<table class="text-right">
+				<tr>
+					<td>Fecha:</td>
+					<td>{{ invoice.createdAt|date("d/m/Y") }}</td>
+				</tr>
+				<tr>
+					<td>Nº de Factura:</td>
+					<td>{{ invoice.reference }}</td>
+				</tr>
+			</table>
+		</div>
+
+		<br class="clear"/>
+		<br class="clear"/>
+
         <div>
             <div class="box left">
-                <h4>Datos de factura</h4>
-                <hr>
-                <div class="panel-body">
-                    <table>
-                        <tr>
-                            <td class="left">Fecha:</td>
-                            <td class="right">{{ invoice.createdAt|date("d/m/Y") }}</td>
-                        </tr>
-                        <tr>
-                            <td class="left">Nº de Factura:</td>
-                            <td class="right">{{ invoice.reference }}</td>
-                        </tr>
-                    </table>
-                </div>
+                <h4>{{ own_company.name }}</h4>
+				<hr>
+				<table>
+					<tr>
+						<td class="strong">CIF</td>
+						<td>{{ own_company.tax_code }}</td>
+					</tr>
+					<tr>
+						<td class="strong">Email</td>
+						<td>{{ own_company.email }}</td>
+					</tr>
+					<tr>
+						<td class="strong">Teléfono</td>
+						<td>{{ own_company.phone }}</td>
+					</tr>
+					<tr>
+						<td class="strong text-top">Dirección</td>
+						<td>
+							{{ own_company.address }}<br/>
+							{{ own_company.zip_code }} - {{ own_company.city }}<br/>
+							{{ own_company.province }} ({{ own_company.country }})
+						</td>
+					</tr>
+				</table>
             </div>
+
             <div class="box right">
-                <h4 class="text-left">Datos de cliente</h4>
-                <hr>
-                <div class="panel-body">
-                    {{ invoice.company.name }} ({{ invoice.company.taxCode }})<br/><br/>
-                    {{ invoice.company.address }}<br/>
-                    {{ invoice.company.zipCode }} - {{ invoice.company.city }}<br/>
-                    {{ invoice.company.province.name }} ({{ invoice.company.country.name }})
-                </div>
+                <h4 class="text-left">{{ invoice.company.name }}</h4>
+				<hr>
+				<table>
+					<tr>
+						<td class="strong">CIF</td>
+						<td>{{ invoice.company.taxCode }}</td>
+					</tr>
+					<tr>
+						<td class="strong">Email</td>
+						<td>{{ invoice.company.email }}</td>
+					</tr>
+					<tr>
+						<td class="strong">Teléfono</td>
+						<td>{{ invoice.company.phone }}</td>
+					</tr>
+					<tr>
+						<td class="strong text-top">Dirección</td>
+						<td>{{ invoice.company.address }}<br/>
+							{{ invoice.company.zipCode }} - {{ invoice.company.city }}<br/>
+							{{ invoice.company.province.name }} ({{ invoice.company.country.name }})
+						</td>
+					</tr>
+				</table>
             </div>
         </div> <!-- / end client details section -->
+
+		<br class="clear"/>
+		<br class="clear"/>
 
         <table class="services-table">
             <thead>
                 <tr>
-                    <th class="text-left"><h4>Servicio</h4></th>
-                    <th class="text-right"><h4>Importe</h4></th>
+                    <th class="text-left long_cell"><h4>Servicio</h4></th>
+                    <th class="text-right short_cell"><h4>Importe</h4></th>
                 </tr>
             </thead>
             <tbody>
@@ -89,8 +138,8 @@
                 <td>{{ invoice_totals.taxes }} {{ currency }}</td>
             </tr>
             {% if invoice_totals.outlays %}
-                <tr class="strong">
-                    <td>Suplicos:</td>
+                <tr>
+                    <td class="strong">Suplidos:</td>
                     <td>{{ invoice_totals.outlays }} {{ currency }}</td>
                 </tr>
             {% endif %}
@@ -99,5 +148,18 @@
                 <td>{{ invoice_totals.total }} {{ currency }}</td>
             </tr>
         </table>
+
+		<br class="clear"/>
+		<br class="clear"/>
+		<br class="clear"/>
+		<br class="clear"/>
+		<br class="clear"/>
+		<br class="clear"/>
+		<br class="clear"/>
+
+		<div class="text-center strong">Número cuenta bancaria de ingreso: {{ bank_account.iban }}</div>
+		{% if invoice.dueDate %}
+			<div class="text-center strong">Fecha de vencimiento: {{ invoice.dueDate|date("d/m/Y") }}</div>
+		{% endif %}
     </body>
 </html>
