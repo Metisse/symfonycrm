@@ -12,7 +12,7 @@ class CompaniesController extends Controller
     /**
      * @var integer Page size.
      */
-    const PAGE_SIZE = 10;
+    const PAGE_SIZE = 25;
 
 	/**
 	 * Action to show the list of companies.
@@ -119,7 +119,7 @@ class CompaniesController extends Controller
                 'The company "'.$company->getName().'" has been saved!'
             );
 
-            return $this->redirectToRoute('crm_app_company_list');
+            return $this->redirectToRoute('crm_app_company_show', array('id' => $company->getId()));
         }
 
         return $this->render(

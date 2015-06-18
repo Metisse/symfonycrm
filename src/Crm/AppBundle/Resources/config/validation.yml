@@ -17,7 +17,7 @@ CrmAppBundle\Entity\Company:
             - Type: \Number
         zipCode:
             - NotBlank: ~
-            - Type: \Number
+            - Type: \Text
         country:
             - NotBlank: ~
             - Type: \Number

@@ -16,7 +16,7 @@ class CompanyType extends AbstractType
 			->add('taxCode', 'text')
 			->add('address', 'text')
 			->add('city', 'text')
-			->add('zipCode', 'number')
+			->add('zipCode', 'text')
 			->add('province', 'entity', array(
 				'class'     => 'CrmAppBundle:Province',
 				'property'  => 'province.name',

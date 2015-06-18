@@ -55,25 +55,25 @@ The following bundles:
   
   * **FrameworkBundle** - The core Symfony framework bundle  
   
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including  
+  * [**SensioFrameworkExtraBundle**][1] - Adds several enhancements, including  
     template and routing annotation capability  
   
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM  
+  * [**DoctrineBundle**][2] - Adds support for the Doctrine ORM  
   
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine  
+  * [**TwigBundle**][3] - Adds support for the Twig templating engine  
   
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security  
+  * [**SecurityBundle**][4] - Adds security by integrating Symfony's security  
     component  
   
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for  
+  * [**SwiftmailerBundle**][5] - Adds support for Swiftmailer, a library for  
     sending emails  
   
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library  
+  * [**MonologBundle**][6] - Adds support for Monolog, a logging library  
   
-  * [**AsseticBundle**][12] - Adds support for Assetic, an asset processing  
+  * [**AsseticBundle**][7] - Adds support for Assetic, an asset processing  
     library
 
-  * [**KnpSnappyBundle**][14] HTML to PDF converter
+  * [**KnpSnappyBundle**][9] HTML to PDF converter
   
   * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and  
     the web debug toolbar  
@@ -81,11 +81,22 @@ The following bundles:
   * **SensioDistributionBundle** (in dev/test env) - Adds functionality for  
     configuring and working with Symfony distributions  
   
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation  
+  * [**SensioGeneratorBundle**][8] (in dev/test env) - Adds code generation
     capabilities
 
 And requieres the next libraries:
 
-  * [**wkhtmltox**](http://wkhtmltopdf.org/) wkhtmltopdf and wkhtmltoimage are
+  * [**wkhtmltox**][10] wkhtmltopdf and wkhtmltoimage are
     open source (LGPLv3) command line tools to render HTML into PDF and various
     image formats using the QT Webkit rendering engine.
+
+[1]:  http://symfony.com/doc/2.6/bundles/SensioFrameworkExtraBundle/index.html
+[2]:  http://symfony.com/doc/master/bundles/DoctrineBundle/index.html
+[3]:  http://symfony.com/doc/2.6/book/templating.html
+[4]:  http://symfony.com/doc/2.6/book/security.html
+[5]: http://symfony.com/doc/2.6/cookbook/email.html
+[6]: http://symfony.com/doc/2.6/cookbook/logging/monolog.html
+[7]: http://symfony.com/doc/2.6/cookbook/assetic/asset_management.html
+[8]: http://symfony.com/doc/2.6/bundles/SensioGeneratorBundle/index.html
+[9]: https://github.com/KnpLabs/KnpSnappyBundle
+[10]: http://wkhtmltopdf.org/

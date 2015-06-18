@@ -12,7 +12,7 @@ class ContactsController extends Controller
     /**
      * @var integer Page size.
      */
-    const PAGE_SIZE = 10;
+    const PAGE_SIZE = 25;
 
     /**
 	 * Action to show the list of contacts.

@@ -14,7 +14,7 @@ class InvoicesController extends Controller
     /**
      * @var integer Page size.
      */
-    const PAGE_SIZE = 10;
+    const PAGE_SIZE = 25;
 
     /**
      * Action to show the list of invoices.
@@ -228,8 +228,10 @@ class InvoicesController extends Controller
     /**
      * Generates the invoice in PDF format.
      *
-     * @param integer $id_company
-     * @param integer $id
+     * @param integer $id_company Company identifier.
+     * @param integer $id Invoice identifier.
+     *
+     * @return Response
      */
     public function downloadAction($id_company, $id)
     {
