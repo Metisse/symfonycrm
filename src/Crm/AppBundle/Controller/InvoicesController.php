@@ -193,12 +193,27 @@ class InvoicesController extends Controller
         $total		= ( $taxable + $vat + $taxes + $outlays );
 
         return array(
-            'taxable'	=> round( $taxable, 2 ),
-            'vat'		=> round( $vat, 2 ),
-            'taxes'		=> round( $taxes, 2 ),
-            'outlays'	=> round( $outlays, 2 ),
-            'total'		=> round( $total, 2 )
+            'taxable'	=> $this->formatPrice($taxable),
+            'vat'		=> $this->formatPrice($vat),
+            'taxes'		=> $this->formatPrice($taxes),
+            'outlays'	=> $this->formatPrice($outlays),
+            'total'		=> $this->formatPrice($total)
         );
+    }
+
+    /**
+     * Format the price.
+     *
+     * @param float $price
+     * @return float
+     */
+    private function formatPrice($price)
+    {
+        $price = round($price, 2);
+        $price = explode('.', $price);
+        $price[1] = empty($price[1])? '00' : str_pad($price[1], 2, '0');
+
+        return $price[0].'.'.$price[1];
     }
 
     /**
@@ -251,19 +266,7 @@ class InvoicesController extends Controller
                 'currency'          => $this->container->getParameter('currency'),
             )
         );
-/*
-return $this->render(
-    'CrmAppBundle:Invoices:download.html.twig',
-    array(
-        'invoice'	        => $invoice,
-        'invoice_totals'    => $this->calculateInvoiceTotalAmounts($invoice),
-        'bank_account'      => $this->container->getParameter('bank_account'),
-        'own_company'       => $this->container->getParameter('company'),
-        'own_contact'       => $this->container->getParameter('contact'),
-        'currency'          => $this->container->getParameter('currency'),
-    )
-);
-*/
+
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html, array('lowquality' => false,'encoding' => 'utf-8')),
             200,
