@@ -161,5 +161,9 @@
 		{% if invoice.dueDate %}
 			<div class="text-center strong">Fecha de vencimiento: {{ invoice.dueDate|date("d/m/Y") }}</div>
 		{% endif %}
+        <br/>
+        {% if invoice.vat == 0 %}
+            <div class="text-center">Esta operación no está sujeta a IVA, de conformidad con el artículo 69 de la Ley del IVA.</div>
+        {% endif %}
     </body>
 </html>
