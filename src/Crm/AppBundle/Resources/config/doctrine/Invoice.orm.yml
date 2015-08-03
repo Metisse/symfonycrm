@@ -34,7 +34,7 @@ Crm\AppBundle\Entity\Invoice:
                 default: 0
         tax:
             type: string
-            columnDefinition: ENUM('0','9','15','21')
+            columnDefinition: ENUM('0','7','9','15','21')
             options:
                 default: 0
         isPaid:

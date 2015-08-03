@@ -17,7 +17,7 @@ class InvoiceType extends AbstractType
                 'required'  => true
             ))
             ->add('tax', 'choice', array(
-                'choices'   => array(0 => '0%', 9 => '9%', 15 => '15%', 21 => '21%'),
+                'choices'   => array(0 => '0%', 7 => '7%', 9 => '9%', 15 => '15%', 21 => '21%'),
                 'required'  => true
             ))
             ->add('company', 'entity', array(
